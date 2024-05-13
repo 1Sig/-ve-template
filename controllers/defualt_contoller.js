@@ -15,7 +15,14 @@ const createuser = async (req, res, next) => {
     }
 }
 
+const login = async (req, res, next)=> {
+    const {username, password} = req.body;
+    const user = await User.login(username, password)
+    res.json(user);
+}
+
 module.exports = {
     index,
-    createuser
+    createuser,
+    login
 }
