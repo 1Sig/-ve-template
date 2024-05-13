@@ -1,8 +1,11 @@
 const router = require('express').Router();
+const { 
+    index,
+    createuser
+ } = require('../controllers/defualt_contoller')
 
-router.get('/', (req, res, next) => {
-    res.json({message:'route working'});
-})
+router.get('/', index)
 
+router.post('/create-user', createuser)
 
 module.exports=router;
