@@ -1,4 +1,6 @@
 const User = require('../models/User')
+const {standardResponse} = require('../handlers/responseHandler')
+const {generateAccessToken} = require('../handlers/tokenhandeler')
 
 const index = (req, res, next) => {
     res.json({message:'route working with controller'});
@@ -17,8 +19,18 @@ const createuser = async (req, res, next) => {
 
 const login = async (req, res, next)=> {
     const {username, password} = req.body;
-    const user = await User.login(username, password)
-    res.json(user);
+    let user = null
+    let responseObject = standardResponse(null, {message: "Login failed!"})
+    try {
+    user = await User.login(username, password)
+    if(user){
+        const token = generateAccessToken();
+        responseObject = standardResponse(user.username, {accessToken: token});
+    }
+    } catch(error) {
+        console.log('An error occured')
+    }
+    res.json(responseObject);
 }
 
 module.exports = {

@@ -12,7 +12,6 @@ const defualt_routes = require('./routes/default_routes')
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-
 app.use(express.urlencoded({extended:true}));
 app.use(express.json());
 
