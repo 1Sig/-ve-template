@@ -33,8 +33,19 @@ const login = async (req, res, next)=> {
     res.json(responseObject);
 }
 
+const userAuthorized = (req, res, next) => {
+    const {user} = req.body;
+    let responseObject = standardResponse('Anonymous', {message: 'security breached!'});
+    console.log("typeof user:", )
+    
+    if(typeof user !== 'undefined' && user){
+        responseObject = standardResponse('Anonymous', {message: 'Endpoint used'} );
+    }
+    res.json(responseObject);
+}
 module.exports = {
     index,
     createuser,
-    login
+    login,
+    userAuthorized
 }
